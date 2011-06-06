@@ -3,8 +3,10 @@
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name) do |f| %>
   <%= devise_error_messages! %>
 
-  <%= f.fields_for @teams do |team| %>
-      <p>Team <%= team.object.name %> <%= team.check_box %></p>
+  <%= @teams.each do |team| %>
+    <%= field_for team do |team_fields| %>
+      <p>Team <%= team.name %> <%= team.check_box %></p>
+    <% end %>
   <% end %>
   
   <p><%= f.label :email %><br />
