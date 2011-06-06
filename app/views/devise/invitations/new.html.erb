@@ -5,7 +5,7 @@
 
   <%= @teams.each do |team| %>
     <%= field_for team do |team_fields| %>
-      <p>Team <%= team.name %> <%= team.check_box %></p>
+      <p>Team <%= team_fields.object.name %> <%= team_fields.check_box %></p>
     <% end %>
   <% end %>
   
