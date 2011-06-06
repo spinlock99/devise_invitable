@@ -5,10 +5,8 @@
 
   <h1> Testing </h1>
 
-  <%= @teams.each do |team| %>
-    <%= f.field_for team do |team_fields| %>
-      <p>Team <%= team_fields.object.name %> <%= team_fields.check_box %></p>
-    <% end %>
+  <%= f.field_for team do |team_fields| %>
+    <p>Team <%= team.name %> <%= team_fields.check_box %></p>
   <% end %>
   
   <p><%= f.label :email %><br />

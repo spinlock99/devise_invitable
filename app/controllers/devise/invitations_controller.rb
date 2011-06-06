@@ -10,7 +10,8 @@ class Devise::InvitationsController < ApplicationController
   def new
     build_resource
     # figure out which teams a User belongs to
-    @teams = resource.teams
+#    @teams = resource.teams
+    team = Teams.find(1)
     # end ADD
     render_with_scope :new
   end
