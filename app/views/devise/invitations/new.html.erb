@@ -4,8 +4,9 @@
   <%= devise_error_messages! %>
 
   <%= f.fields_for @teams do |team| %>
-  <p>Team <%= team.object.name %> <%= team.check_box %></p>
-
+      <p>Team <%= team.object.name %> <%= team.check_box %></p>
+  <% end %>
+  
   <p><%= f.label :email %><br />
   <%= f.text_field :email %></p>
 
