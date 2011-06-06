@@ -17,6 +17,10 @@ class Devise::InvitationsController < ApplicationController
     self.resource = resource_class.invite!(params[resource_name], current_inviter)
 
     if resource.errors.empty?
+      # Hack Team support into create method
+      team = Find.Team(1)
+      resource.join!(team)
+      # Display flash message indicating success
       set_flash_message :notice, :send_instructions, :email => self.resource.email
       respond_with resource, :location => redirect_location(resource_name, resource)
     else
