@@ -1,17 +1,25 @@
-<h2>Send invitation</h2>
+<h2>Invite a Friends to Join:</h2>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name) do |f| %>
   <%= devise_error_messages! %>
 
-  <h1> Testing </h1>
+  <ul class="email">
+    <li>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </li>
+  </ul>
 
-  <%= f.field_for team do |team_fields| %>
-    <p>Team <%= team.name %> <%= team_fields.check_box %></p>
-  <% end %>
+  <h2> Which Teams will they Join?</h2>
+  <ul class="teams">
+    <% @teams.each do |team| %>
+    <li>
+      <%= check_box_tag("team[]", team.id) %> 
+      <%= team.name %>
+    </li>
+    <% end %>
+  </ul>
   
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
-
   <p><%= f.submit "Send an invitation" %></p>
 <% end %>
 

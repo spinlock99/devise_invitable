@@ -10,20 +10,31 @@ class Devise::InvitationsController < ApplicationController
   def new
     build_resource
     # figure out which teams a User belongs to
-#    @teams = resource.teams
-    team = resource.teams.first
+    @teams = current_inviter.teams
+#    @team = resource.teams.first
+#    logger.debug "\n\n\#{resource}\n\n"
+#    logger.debug Teams.find(1)
+    logger.debug @teams
     # end ADD
     render_with_scope :new
   end
 
   # POST /resource/invitation
   def create
+    # HACK ADD
+    logger.debug params
+    # END HACK ADD
     self.resource = resource_class.invite!(params[resource_name], current_inviter)
 
     if resource.errors.empty?
       # Hack Team support into create method
-      team = Team.find(1)
-      resource.join!(team)
+      #team = Team.find(1)
+      #resource.join!(team)
+      params[:team].each do |team_id|
+        team = Team.find(team_id)
+        resource.join!(team)
+      end
+      logger.debug params[:team]
       # Display flash message indicating success
       set_flash_message :notice, :send_instructions, :email => self.resource.email
       respond_with resource, :location => redirect_location(resource_name, resource)
