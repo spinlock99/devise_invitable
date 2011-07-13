@@ -44,6 +44,7 @@ module Devise
 
       # Reset invitation token and send invitation again
       def invite!
+        logger.debug "\n\n\t invite! \n"
         if new_record? || invited?
           @skip_password = true
           self.skip_confirmation! if self.new_record? && self.respond_to?(:skip_confirmation!)
@@ -54,6 +55,7 @@ module Devise
             !!deliver_invitation unless @skip_invitation
           end
         end
+        logger.dubug "\n end invite! \n\n"
       end
 
       # Verify whether a invitation is active or not. If the user has been
