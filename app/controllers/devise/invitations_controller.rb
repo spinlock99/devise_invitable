@@ -15,12 +15,15 @@ class Devise::InvitationsController < ApplicationController
 
   # POST /resource/invitation
   def create
+    logger.debug "\n\n SuperClass Create \n\n"
     self.resource = resource_class.invite!(params[resource_name], current_inviter)
-
+    logger.debug "\n\n if resource.errors.empty? \n"
     if resource.errors.empty?
+      logger.dubug "\n\n\t true \n"
       set_flash_message :notice, :send_instructions, :email => self.resource.email
       respond_with resource, :location => redirect_location(resource_name, resource)
     else
+      logger.dubug "\n\n\t false \n"
       respond_with_navigational(resource) { render_with_scope :new }
     end
   end
