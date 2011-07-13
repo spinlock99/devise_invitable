@@ -16,6 +16,8 @@ class Devise::InvitationsController < ApplicationController
   # POST /resource/invitation
   def create
     logger.debug "\n\n SuperClass Create \n\n"
+    current_inviter
+    logger.debug "\n current_inviter \n"
     self.resource = resource_class.invite!(params[resource_name], current_inviter)
     logger.debug "\n\n if resource.errors.empty? \n"
     if resource.errors.empty?
